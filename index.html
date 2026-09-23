@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOBSZ TOOLS — Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: #e8e8e8;
+            background-image: radial-gradient(#000 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 460px;
+            margin: 0 auto;
+        }
+
+        .top-server {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .server-btn {
+            background: #000;
+            color: #fff;
+            padding: 10px 30px;
+            border-radius: 30px;
+            border: 3px solid #fff;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .logo-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        .logo-title i {
+            color: #ffd000;
+        }
+
+        /* ===== LIMIT INFO ===== */
+        .limit-box {
+            background: linear-gradient(135deg, #5145f3, #7a6cf7);
+            border: 4px solid #000;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.35);
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .limit-nomor {
+            font-size: 1.4rem;
+            color: #ffd000;
+        }
+
+        .main-box {
+            background: #fff;
+            border: 4px solid #000;
+            border-radius: 16px;
+            padding: 25px 20px;
+            box-shadow: 6px 6px 0 rgba(0,0,0,0.35);
+            margin-bottom: 20px;
+        }
+
+        /* ===== PILIHAN TOOLS ===== */
+        .tools-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .tool-card {
+            border: 4px solid #000;
+            border-radius: 12px;
+            padding: 25px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.35);
+        }
+        .tool-card:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.35);
+        }
+        .tool-card:active {
+            transform: translate(3px, 3px);
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.35);
+        }
+        .tool-card.purple {
+            background: #5145f3;
+            color: #fff;
+        }
+        .tool-card.yellow {
+            background: #ffd000;
+            color: #000;
+        }
+        .tool-card i {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .tool-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        .tool-card p {
+            font-size: 0.85rem;
+            opacity: 0.85;
+        }
+        .tool-card.terkunci {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* ===== NAVIGASI ===== */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: none;
+            color: #5145f3;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-bottom: 15px;
+            padding: 5px 0;
+        }
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== PAKET GRID ===== */
+        .paket-judul {
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #ddd;
+        }
+        .paket-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        @media (max-width: 360px) {
+            .paket-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .paket-card {
+            border: 3px solid #000;
+            border-radius: 16px;
+            padding: 20px 15px;
+            background: linear-gradient(145deg, #2b2b40, #1f1f30);
+            color: #fff;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.35);
+            position: relative;
+            overflow: hidden;
+        }
+        .paket-card:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 8px 8px 0 rgba(81, 69, 243, 0.5);
+            border-color: #5145f3;
+        }
+        .paket-card.populer::before {
+            content: 'POPULER';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(90deg, #ff4081, #7c4dff);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 12px;
+        }
+        .paket-icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .paket-label {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-bottom: 4px;
+        }
+        .paket-jumlah {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+        .paket-harga-besar {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #ffd000;
+            margin-bottom: 8px;
+        }
+        .paket-keterangan {
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 15px;
+        }
+        .paket-btn {
+            width: 100%;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .paket-btn:hover {
+            background: #5145f3;
+            border-color: #5145f3;
+        }
+
+        /* ===== FORM & TOMBOL ===== */
+        label {
+            font-weight: 700;
+            display: block;
+            margin-bottom: 8px;
+            color: #222;
+        }
+        input, textarea {
+            width: 100%;
+            border: 3px solid #000;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        input[readonly] {
+            background: #e9e9e9;
+            cursor: not-allowed;
+            color: #555;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .upload-box {
+            border: 4px dashed #5145f3;
+            border-radius: 12px;
+            padding: 35px 20px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 15px;
+            background: #f8f8ff;
+            transition: 0.2s;
+        }
+        .upload-box:hover {
+            border-color: #ffd000;
+            background: #fffdf0;
+        }
+        .upload-box p {
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        input[type="file"] {
+            display: none;
+        }
+
+        .btn {
+            width: 100%;
+            border: 4px solid #000;
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.35);
+            transition: transform 0.1s;
+            margin-bottom: 12px;
+        }
+        .btn:active {
+            transform: translate(3px, 3px);
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.35);
+        }
+        .btn-purple { background: #5145f3; color: #fff; }
+        .btn-yellow { background: #ffd000; color: #000; }
+        .btn-hijau { background: #4caf50; color: #fff; }
+        .btn-merah { background: #f44336; color: #fff; }
+
+        /* ===== POP UP FORM PEMESANAN ===== */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9998;
+            padding: 20px;
+        }
+        .overlay.tampil {
+            display: flex;
+        }
+        .popup-box {
+            background: #fff;
+            border: 4px solid #000;
+            border-radius: 16px;
+            padding: 25px 20px;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.4);
+            width: 100%;
+            max-width: 420px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .popup-judul {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        .qris-gambar {
+            width: 100%;
+            max-width: 280px;
+            margin: 10px auto;
+            display: block;
+            border: 3px solid #000;
+            border-radius: 10px;
+        }
+        .teks-peringatan {
+            text-align: center;
+            font-weight: 600;
+            color: #d32f2f;
+            margin: 12px 0;
+            line-height: 1.5;
+        }
+        .tombol-tutup {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+        .tombol-tutup:hover {
+            color: #000;
+        }
+        .popup-atas {
+            position: relative;
+        }
+
+        /* ===== LOADING ===== */
+        .loading-box {
+            text-align: center;
+            padding: 25px;
+            display: none;
+        }
+        .loading-box.tampil {
+            display: block;
+        }
+        .spinner {
+            border: 4px solid #ddd;
+            border-top: 4px solid #5145f3;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===== HASIL ===== */
+        .hasil-box {
+            text-align: center;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 3px solid #000;
+            border-radius: 10px;
+            display: none;
+        }
+        .hasil-box.tampil {
+            display: block;
+        }
+        .preview-img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .transparent-bg {
+            background-image: linear-gradient(45deg, #ccc 25%, transparent 25%),
+                              linear-gradient(-45deg, #ccc 25%, transparent 25%),
+                              linear-gradient(45deg, transparent 75%, #ccc 75%),
+                              linear-gradient(-45deg, transparent 75%, #ccc 75%);
+            background-size: 20px 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        canvas {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        /* ===== ALERT BUATAN ===== */
+        .alert-kotak {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            max-width: 320px;
+            z-index: 9999;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+        }
+        .alert-kotak.muncul {
+            transform: translateX(0);
+        }
+        .alert-isi {
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 3px solid #000;
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.35);
+            font-weight: 600;
+        }
+        .alert-sukses { background: #e8f5e9; color: #2e7d32; border-color: #4caf50; }
+        .alert-error { background: #ffebee; color: #b71c1c; border-color: #f44336; }
+        .alert-info { background: #e3f2fd; color: #0d47a1; border-color: #2196f3; }
+
+        .hidden { display: none !important; }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #555;
+        }
+        
+                /* ===== LABEL FREE & PREMIUM ===== */
+        .tool-card {
+            position: relative;
+        }
+        .label-free {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(90deg, #4caf50, #81c784);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 12px;
+        }
+        .label-premium {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(90deg, #ff9800, #ffc107);
+            color: #000;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 12px;
+        }
+
+        /* ===== LABEL FREE & PREMIUM ===== */
+        .tool-card {
+            position: relative;
+        }
+        .label-free {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(90deg, #4caf50, #81c784);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 12px;
+        }
+        .label-premium {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(90deg, #ff9800, #ffc107);
+            color: #000;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 12px;
+        }
+        /* ===== KARTU REDEEM ===== */
+        .kartu-redeem {
+            border: 2px solid #000;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #fff;
+        }
+        .hapus-btn {
+            background: #f44336;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+.hidden {
+    display: none !important;
+}
+
+/* --- ALERT KONFIRMASI BUATAN --- */
+.konfirmasi-sampul {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.konfirmasi-kotak {
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 16px;
+    border: 3px solid #000;
+    max-width: 320px;
+    width: 85%;
+    text-align: center;
+}
+.konfirmasi-teks {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #222;
+}
+.konfirmasi-tombol {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+.konfirmasi-batal, .konfirmasi-oke {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+.konfirmasi-batal {
+    background: #eee;
+    color: #333;
+}
+.konfirmasi-oke {
+    background: #ff4444;
+    color: #fff;
+}
+
+
+    </style>
+</head>
+<body>
+
+    <!-- ALERT BUATAN -->
+    <div class="alert-kotak" id="alertSamping">
+        <div class="alert-isi" id="alertIsi"></div>
+    </div>
+
+    <!-- POP UP FORM PEMESANAN -->
+    <div class="overlay" id="popupOverlay">
+        <div class="popup-box">
+            <div class="popup-atas">
+                <span class="tombol-tutup" id="tutupPopup">&times;</span>
+                <h3 class="popup-judul">📋 Form Pemesanan</h3>
+            </div>
+
+            <label>Paket No:</label>
+            <input type="text" id="formPaketNo" readonly>
+
+            <label>Jumlah Limit:</label>
+            <input type="text" id="formJumlahLimit" readonly>
+
+            <label>Nama Pemesan <span style="color:red;">*</span></label>
+            <input type="text" id="formNamaPemesan" placeholder="Masukkan nama kamu...">
+
+            <label>Keterangan (Opsional)</label>
+            <textarea id="formKeterangan" placeholder="Contoh: Sudah transfer via QRIS..."></textarea>
+
+            <img src="qris.jpg" alt="QRIS Pembayaran" class="qris-gambar" onerror="this.src='https://via.placeholder.com/280x280/eee/555?text=qris.jpg'">
+
+            <p class="teks-peringatan">
+                Scan Qris Untuk Melakukan Pembayaran,<br>
+                Dan Kirim Bukti Pembayaran Jika Sudah Melakukan Pembayaran.
+            </p>
+
+            <button class="btn btn-hijau" id="tombolKirimWa">
+                <i class="fab fa-whatsapp"></i> KIRIM PESANAN KE WHATSAPP
+            </button>
+            <button class="btn btn-merah" id="tombolBatal" style="margin-bottom:0;">
+                <i class="fas fa-times"></i> BATAL
+            </button>
+        </div>
+    </div>
+
+<!-- POP UP REDEEM -->
+<div class="overlay" id="popupRedeem">
+    <div class="popup-box">
+        <div class="popup-atas">
+            <span class="tombol-tutup" onclick="tutupRedeem()">&times;</span>
+            <h3 class="popup-judul">🎁 Masukkan Kode Redeem</h3>
+        </div>
+        <label>Kode Redeem</label>
+        <input type="text" id="inputRedeem" placeholder="Masukkan kode..." style="text-transform: uppercase;">
+        <button class="btn btn-hijau" onclick="cekRedeem()">
+            <i class="fas fa-check"></i> GUNAKAN KODE
+        </button>
+        <button class="btn btn-merah" onclick="tutupRedeem()" style="margin-bottom:0;">
+            <i class="fas fa-times"></i> BATAL
+        </button>
+    </div>
+</div>
+
+<!-- POP UP VIP AREA / LOGIN ADMIN -->
+<div class="overlay" id="popupVip">
+    <div class="popup-box">
+        <div class="popup-atas">
+            <span class="tombol-tutup" onclick="tutupVip()">&times;</span>
+            <h3 class="popup-judul">👑 VIP AREA — Admin Only</h3>
+        </div>
+        <label>Key Admin</label>
+        <input type="text" id="inputVipKey" placeholder="Masukkan key admin...">
+        <button class="btn" style="background: #ffd000; color: #000;" onclick="masukVip()">
+            <i class="fas fa-crown"></i> MASUK PANEL ADMIN
+        </button>
+        <button class="btn btn-merah" onclick="tutupVip()" style="margin-bottom:0;">
+            <i class="fas fa-times"></i> BATAL
+        </button>
+    </div>
+</div>
+
+
+<!-- PANEL ADMIN -->
+<div class="main-box hidden" id="panelAdmin">
+    <button class="back-btn" onclick="keluarAdmin()">
+        <i class="fas fa-arrow-left"></i> Kembali
+    </button>
+    <h3 style="text-align:center; margin-bottom:20px;">⚙️ PANEL ADMIN — Buat Kode Redeem</h3>
+
+    <div style="background: #f5f5f5; padding:15px; border-radius:10px; margin-bottom:20px; border:2px solid #000;">
+        <label>Buat Kode Redeem Baru</label>
+        <input type="text" id="kodeBaru" placeholder="Contoh: YBP-REDEM1" style="text-transform: uppercase;">
+        
+        <label>Jumlah Limit yang Diberikan</label>
+        <input type="number" id="limitDiberi" placeholder="Contoh: 50">
+        
+        <label>Maksimal Pengguna</label>
+        <input type="number" id="maksPakai" placeholder="Contoh: 50">
+        
+        <button class="btn btn-hijau" onclick="buatRedeem()">
+            <i class="fas fa-plus-circle"></i> BUAT KODE
+        </button>
+    </div>
+
+    <h4 style="margin-bottom:10px;">📋 Daftar Kode Redeem</h4>
+    <div id="daftarRedeemAktif"></div>
+</div>
+
+
+
+    <div class="container">
+        <div class="top-server">
+            <div class="server-btn">YOBSZ TOOLS</div>
+        </div>
+
+        <h1 class="logo-title">YOBSZ TOOLS <i class="fas fa-crown"></i></h1>
+
+        <!-- LIMIT DI ATAS -->
+        <div class="limit-box">
+            <span>You Limit:</span>
+            <span class="limit-nomor" id="limitTeks">0</span>
+        </div>
+
+        <!-- HALAMAN UTAMA: PILIHAN TOOLS -->
+        <div class="main-box" id="halamanUtama">
+            <div class="tools-menu">
+                <div class="tool-card purple" id="cardRemovebg" onclick="bukaTool('removebg')">
+                    <i class="fas fa-eraser"></i>
+                    <h3>Hapus Background</h3>
+                    <p>Hapus latar belakang foto otomatis</p>
+                    <span class="label-free">PREMIUM</span>
+                </div>
+
+                <div class="tool-card yellow" id="cardQr" onclick="bukaTool('qrcode')">
+                    <i class="fas fa-qrcode"></i>
+                    <h3>Buat QR Code</h3>
+                    <p>Ubah teks/link menjadi kode QR</p>
+                    <span class="label-free">FREE</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- HALAMAN TAMBAH LIMIT / PAKET -->
+        <div class="main-box hidden" id="halamanPaket">
+            <button class="back-btn" onclick="kembaliUtama()">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <h3 style="text-align:center; margin-bottom:20px;">💰 Tambah Limit</h3>
+
+            <div class="key-box" style="margin-bottom:25px;">
+<label>Masukkan Key Limit</label>
+<div style="position: relative;">
+    <span style="
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-90%);
+        color: #222;
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+        pointer-events: none;
+        user-select: none;
+        z-index: 1;
+    ">YBP-</span>
+    <input 
+        type="text" 
+        id="inputKeyLimit" 
+        style="
+            padding: 14px 15px 14px 65px;
+            font-size: 1rem;
+            border: 3px solid #000;
+            border-radius: 10px;
+            width: 100%;
+        "
+        oninput="this.value = this.value.toUpperCase()"
+    >
+</div>
+
+
+                <button class="btn btn-hijau" id="tombolPakaiKey">
+                    <i class="fas fa-key"></i> GUNAKAN KEY
+                </button>
+            </div>
+
+            <h4 class="paket-judul">Pilih Paket Pembelian</h4>
+            <div class="paket-grid" id="daftarPaket"></div>
+        </div>
+
+        <!-- HALAMAN REMOVE BG -->
+        <div class="main-box hidden" id="halamanRemovebg">
+            <button class="back-btn" onclick="kembaliUtama()">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <h3 style="text-align:center; margin-bottom:20px;">🖼️ Hapus Background Foto</h3>
+
+            <div class="upload-box" id="uploadBoxBg">
+                <i class="fas fa-cloud-upload-alt" style="font-size:32px; color:#5145f3;"></i>
+                <p>Klik atau Seret Foto ke Sini</p>
+                <small>JPG, PNG — Maks 12MB</small>
+                <input type="file" id="fileBg" accept="image/*">
+            </div>
+
+            <div class="loading-box" id="loadingBg">
+                <div class="spinner"></div>
+                <p>Sedang memproses...</p>
+            </div>
+
+            <div class="hasil-box" id="hasilBg">
+                <h4>Foto Asli</h4>
+                <img class="preview-img" id="imgAsli" alt="Asli">
+                <h4 style="margin-top:15px;">✅ Hasil</h4>
+                <div class="transparent-bg">
+                    <img class="preview-img" id="imgHasilBg" alt="Hasil">
+                </div>
+                <button class="btn btn-yellow" id="unduhBg" style="margin-top:15px;">
+                    <i class="fas fa-download"></i> UNDUH PNG
+                </button>
+            </div>
+        </div>
+
+        <!-- HALAMAN QR CODE -->
+        <div class="main-box hidden" id="halamanQr">
+            <button class="back-btn" onclick="kembaliUtama()">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <h3 style="text-align:center; margin-bottom:20px;"> Buat QR Code</h3>
+
+            <label>Teks / Link / Nomor</label>
+            <textarea id="teksQr" placeholder="Tulis link atau teks di sini..." rows="4"></textarea>
+
+            <button class="btn btn-purple" id="buatQrBtn">
+                <i class="fas fa-magic"></i> BUAT QR CODE
+            </button>
+
+            <div class="loading-box" id="loadingQr">
+                <div class="spinner"></div>
+                <p>Sedang membuat...</p>
+            </div>
+
+            <div class="hasil-box" id="hasilQr">
+                <canvas id="kanvasQr"></canvas>
+                <button class="btn btn-yellow" id="unduhQr" style="margin-top:15px;">
+                    <i class="fas fa-download"></i> UNDUH GAMBAR
+                </button>
+            </div>
+        </div>
+
+        <!-- TOMBOL TAMBAH LIMIT DI BAWAH -->
+        <div style="text-align:center; margin-top:10px;">
+            <button class="btn btn-purple" id="tombolBukaPaket" style="max-width:300px;">
+                <i class="fas fa-plus-circle"></i> TAMBAH LIMIT
+            </button>
+        </div>
+
+<!-- 3 TOMBOL DI BAWAHNYA -->
+ <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px;">
+     <button class="btn" style="background: #5145f3; color: #fff;" onclick="kembaliUtama()">
+         <i class="fas fa-home"></i> HOME
+     </button>
+     <button class="btn" style="background: #fff; color: #7c4dff; border: 3px solid #7c4dff;" onclick="bukaRedeem()">
+         <i class="fas fa-gem"></i> REDEEM
+     </button>
+     <button class="btn" style="background: #ffd000; color: #000;" onclick="bukaVipArea()">
+         <i class="fas fa-crown"></i> VIP AREA
+     </button>
+ </div>
+ <p style="text-align:center; margin-top:15px; font-size:0.8rem; color:#666;">
+     <i class="fas fa-shield-alt"></i> AMAN & TERLINDUNGI
+ </p>
+
+
+        <p class="footer-text">© 2026 YOBSZ TOOLS — Premium Version ✅</p>
+    </div>
+
+<script>
+// ==============================================
+// 🔑 KONFIGURASI — UBAH BAGIAN INI!
+// ==============================================
+const JSONBIN_BIN_ID = '6ab394c6ffd5d16053260108';      // ← GANTI!
+const JSONBIN_API_KEY = '$2a$10$CkgtgR7hS4OMppFtzF8S.eJ/qRM6tdjSrKeLwzsi9cwForo5kkWHu';     // ← GANTI!
+
+const ADMIN_KEY = 'YBP-ADMIN123';                   // ← Bisa diganti key admin kamu
+const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
+
+// 👇 KONFIGURASI REMOVEBG ADA DI SINI 👇
+const CLIPDROP_API_KEY = 'd91035a2f5fbe183c697059dc42981650309c46204864b355e5bdf8a0db4c8c638937a1806a8a1549f4e4059655eee1d';
+
+
+let daftarRedeem = [];
+
+// Ambil elemen
+const halamanPaket = document.getElementById('halamanPaket');
+const halamanRemovebg = document.getElementById('halamanRemovebg');
+const halamanQr = document.getElementById('halamanQr');
+const limitTeks = document.getElementById('limitTeks');
+
+// ==============================================
+// 📡 AMBIL DATA DARI SERVER
+// ==============================================
+async function ambilDataRedeem() {
+    try {
+        const res = await fetch(JSONBIN_URL + '/latest', {
+            headers: { 'X-Master-Key': JSONBIN_API_KEY }
+        });
+        const data = await res.json();
+        daftarRedeem = data.record || [];
+    } catch (err) {
+        console.log('Ambil data gagal:', err);
+        daftarRedeem = [];
+    }
+}
+
+// ==============================================
+// 💾 SIMPAN DATA KE SERVER
+// ==============================================
+async function ambilDataRedeem() {
+  try {
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+      headers: { 'X-Access-Key': JSONBIN_API_KEY }
+    });
+    const data = await res.json();
+    
+    // Pastikan daftarRedeem selalu berupa array
+    daftarRedeem = data.record?.daftarRedeem || [];
+    
+    // Tambahan: paksa jadi array kalau bukan
+    if (!Array.isArray(daftarRedeem)) {
+      daftarRedeem = [];
+    }
+  } catch (err) {
+    console.log('Gagal ambil data:', err);
+    daftarRedeem = [];
+  }
+}
+
+
+// ==============================================
+// 📊 TAMPILKAN LIMIT & KUNCI ALAT
+// ==============================================
+function perbaruiLimit() {
+    limitTeks.textContent = limitSisa;
+    localStorage.setItem('yobsz_limit', limitSisa);
+    
+    const kartu = document.querySelectorAll('.tool-card');
+    kartu.forEach(k => {
+        if (k.id === 'cardQr') {
+            k.classList.remove('terkunci');
+        } else {
+            if (limitSisa <= 0) k.classList.add('terkunci');
+            else k.classList.remove('terkunci');
+        }
+    });
+}
+
+// ==============================================
+// 📂 BUKA TUTUP HALAMAN
+// ==============================================
+function bukaTool(nama) {
+    if (nama === 'qrcode') {
+        halamanUtama.classList.add('hidden');
+        halamanQr.classList.remove('hidden');
+        return;
+    }
+    if (limitSisa <= 0) {
+        tampilAlert('⚠️ Limit habis! Tambah limit dulu', 'error');
+        return;
+    }
+    halamanUtama.classList.add('hidden');
+    halamanRemovebg.classList.remove('hidden');
+}
+
+function kembaliUtama() {
+    halamanPaket?.classList.add('hidden');
+    halamanRemovebg?.classList.add('hidden');
+    halamanQr?.classList.add('hidden');
+    document.getElementById('panelAdmin')?.classList.add('hidden');
+    halamanUtama.classList.remove('hidden');
+}
+
+function bukaHalamanPaket() {
+    halamanUtama.classList.add('hidden');
+    halamanPaket.classList.remove('hidden');
+}
+
+// ==============================================
+// 🎁 REDEEM
+// ==============================================
+function bukaRedeem() {
+    document.getElementById('popupRedeem').classList.add('tampil');
+    document.getElementById('inputRedeem').value = '';
+}
+function tutupRedeem() {
+    document.getElementById('popupRedeem').classList.remove('tampil');
+}
+
+async function cekRedeem() {
+    const kode = document.getElementById('inputRedeem').value.trim().toUpperCase();
+    if (!kode) {
+        tampilAlert('⚠️ Masukkan kode dulu!', 'error');
+        return;
+    }
+
+    await ambilDataRedeem();
+    const cari = daftarRedeem.find(r => r.kode === kode);
+    
+    if (!cari) return tampilAlert('❌ Kode tidak ditemukan!', 'error');
+    if (cari.sudahPakai >= cari.maksimal) return tampilAlert('❌ Kode sudah habis!', 'error');
+
+    cari.sudahPakai++;
+    limitSisa += cari.limitDiberikan;
+    perbaruiLimit();
+    
+    const ok = await simpanKeServer();
+    if (!ok) {
+        limitSisa -= cari.limitDiberikan;
+        perbaruiLimit();
+        return tampilAlert('❌ Gagal terhubung server', 'error');
+    }
+
+    tutupRedeem();
+    tampilAlert(`🎉 Selamat! +${cari.limitDiberikan} Limit<br>Total: ${limitSisa}`, 'sukses');
+}
+
+// ==============================================
+// 👑 VIP AREA / ADMIN
+// ==============================================
+function bukaVipArea() {
+    document.getElementById('popupVip').classList.add('tampil');
+}
+function tutupVip() {
+    document.getElementById('popupVip').classList.remove('tampil');
+}
+
+async function masukVip() {
+    const key = document.getElementById('inputVipKey').value.trim();
+    if (key === ADMIN_KEY) {
+        tutupVip();
+
+        // ✅ SEMBUNYIKAN BAGIAN BAWAH SAAT ADMIN TERBUKA
+        document.getElementById('halamanUtama').classList.add('hidden'); // ← TAMBAH INI
+        document.querySelector('.server-btn').classList.add('hidden');     // YOBSZ TOOLS atas
+        document.querySelector('.logo-title').classList.add('hidden');     // Judul YOBSZ TOOLS
+        document.querySelector('.limit-box').classList.add('hidden');       // Kotak You Limit
+        document.getElementById('tombolBukaPaket').classList.add('hidden'); // Tombol TAMBAH LIMIT
+        document.querySelector('[style*="grid-template-columns"]').classList.add('hidden'); // HOME/REDEEM/VIP
+        document.querySelector('.footer-text').classList.add('hidden');    // Teks copyright bawah
+
+        // Tampilkan Panel Admin
+        document.getElementById('panelAdmin').classList.remove('hidden');
+
+        await ambilDataRedeem();
+        muatDaftarRedeem();
+    } else {
+        tampilAlert('❌ Key Admin Salah!', 'error');
+    }
+}
+
+function keluarAdmin() {
+    // Sembunyikan Panel Admin
+    document.getElementById('panelAdmin').classList.add('hidden');
+
+    // ✅ TAMPILKAN KEMBALI SAAT KELUAR
+    document.getElementById('halamanUtama').classList.remove('hidden'); // ← TAMBAH INI
+    document.querySelector('.server-btn').classList.remove('hidden');
+    document.querySelector('.logo-title').classList.remove('hidden');
+    document.querySelector('.limit-box').classList.remove('hidden');
+    document.getElementById('tombolBukaPaket').classList.remove('hidden');
+    document.querySelector('[style*="grid-template-columns"]').classList.remove('hidden');
+    document.querySelector('.footer-text').classList.remove('hidden');
+
+    tampilAlert('✅ Berhasil keluar dari Panel Admin', 'sukses');
+}
+
+
+async function buatRedeem() {
+    const kode = document.getElementById('kodeBaru').value.trim().toUpperCase();
+    const limit = parseInt(document.getElementById('limitDiberi').value);
+    const maks = parseInt(document.getElementById('maksPakai').value);
+
+    if (!kode || !limit || !maks) {
+        return tampilAlert('⚠️ Isi semua data!', 'error');
+    }
+
+    await ambilDataRedeem();
+    if (daftarRedeem.find(r => r.kode === kode)) {
+        return tampilAlert('❌ Kode sudah ada!', 'error');
+    }
+
+    daftarRedeem.push({ kode, limitDiberikan: limit, maksimal: maks, sudahPakai: 0 });
+    if (!await simpanKeServer()) return tampilAlert('❌ Gagal simpan', 'error');
+
+    muatDaftarRedeem();
+    document.getElementById('kodeBaru').value = '';
+    document.getElementById('limitDiberi').value = '';
+    document.getElementById('maksPakai').value = '';
+    tampilAlert(`✅ Kode ${kode} dibuat!`, 'sukses');
+}
+
+async function hapusRedeem(kode) {
+     tampilKonfirmasi(
+         'Yakin mau hapus kode ini?',
+         async () => {
+             // Jika tekan Oke
+             await ambilDataRedeem();
+             daftarRedeem = daftarRedeem.filter(r => r.kode !== kode);
+             if (!(await simpanKeServer())) {
+                 return tampilAlert('❌ Gagal hapus', 'error');
+             }
+             muatDaftarRedeem();
+             tampilAlert('✅ Kode dihapus', 'sukses');
+         },
+         () => {
+             // Jika tekan Batal — tidak lakukan apa-apa
+         }
+     );
+ }
+ 
+ // ==============================================
+// ALERT KONFIRMASI BUATAN
+// ==============================================
+function tampilKonfirmasi(pesan, aksiOke, aksiBatal) {
+    const kotak = document.createElement('div');
+    kotak.className = 'konfirmasi-sampul';
+    kotak.innerHTML = `
+        <div class="konfirmasi-kotak">
+            <p class="konfirmasi-teks">${pesan}</p>
+            <div class="konfirmasi-tombol">
+                <button class="konfirmasi-batal">Batal</button>
+                <button class="konfirmasi-oke">Oke</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(kotak);
+
+    // Jalankan aksi jika ditekan
+    kotak.querySelector('.konfirmasi-batal').onclick = () => {
+        kotak.remove();
+        if (aksiBatal) aksiBatal();
+    };
+    kotak.querySelector('.konfirmasi-oke').onclick = () => {
+        kotak.remove();
+        if (aksiOke) aksiOke();
+    };
+}
+
+
+function muatDaftarRedeem() {
+    const wadah = document.getElementById('daftarRedeemAktif');
+    if (!wadah) return;
+    if (daftarRedeem.length === 0) {
+        wadah.innerHTML = '<p style="color:#888; text-align:center;">Belum ada kode</p>';
+        return;
+    }
+    wadah.innerHTML = '';
+    daftarRedeem.forEach(r => {
+        const el = document.createElement('div');
+        el.className = 'kartu-redeem';
+        el.innerHTML = `
+            <div style="display:flex; justify-content:space-between;">
+                <strong>${r.kode}</strong>
+                <span style="color:${r.sudahPakai >= r.maksimal ? 'red' : 'green'};">${r.sudahPakai}/${r.maksimal}</span>
+            </div>
+            <p style="margin:5px 0;">Limit: +${r.limitDiberikan}</p>
+            <button class="hapus-btn" onclick="hapusRedeem('${r.kode}')">Hapus</button>
+        `;
+        wadah.appendChild(el);
+    });
+}
+
+
+// Tutup pop up klik luar
+document.getElementById('popupRedeem')?.addEventListener('click', e => {
+    if (e.target.id === 'popupRedeem') tutupRedeem();
+});
+document.getElementById('popupVip')?.addEventListener('click', e => {
+    if (e.target.id === 'popupVip') tutupVip();
+});
+
+
+
+// DAFTAR PAKET
+const daftarPaket = [
+    { no: 1, nama: 'Paket 1', limit: 5, harga: 2000, populer: false },
+    { no: 2, nama: 'Paket 2', limit: 10, harga: 5000, populer: true },
+    { no: 3, nama: 'Paket 3', limit: 15, harga: 14000, populer: false },
+{ no: 4, nama: 'Paket 4', limit: 20, harga: 20000, populer: false },
+     { no: 5, nama: 'Paket 5', limit: 25, harga: 24000, populer: false },
+     { no: 6, nama: 'Paket 6', limit: 30, harga: 30000, populer: false },
+     { no: 7, nama: 'Paket 7', limit: 35, harga: 34000, populer: false },
+     { no: 8, nama: 'Paket 8', limit: 40, harga: 40000, populer: false },
+     { no: 9, nama: 'Paket 9', limit: 45, harga: 45000, populer: false },
+     { no: 10, nama: 'Paket 10', limit: 50, harga: 51000, populer: false }
+ ];
+
+ 
+ let limitSisa = parseInt(localStorage.getItem('yobsz_limit') || 0);
+ let paketDipilih = null;
+ // ELEMEN UTAMA
+ const halamanUtama = document.getElementById('halamanUtama');
+ const popupOverlay = document.getElementById('popupOverlay');
+
+ // ALERT BUATAN
+ function tampilAlert(pesan, jenis = 'info') {
+     const kotak = document.getElementById('alertSamping');
+     const isi = document.getElementById('alertIsi');
+     isi.className = `alert-isi alert-${jenis}`;
+     isi.innerHTML = pesan;
+     kotak.classList.add('muncul');
+     setTimeout(() => kotak.classList.remove('muncul'), 3500);
+ }
+ // MUAT DAFTAR PAKET — SUDAH DIUBAH
+ function muatPaket() {
+     const wadah = document.getElementById('daftarPaket');
+     wadah.innerHTML = '';
+     
+     daftarPaket.forEach(paket => {
+         const kartu = document.createElement('div');
+         kartu.className = `paket-card ${paket.populer ? 'populer' : ''}`;
+         kartu.innerHTML = `
+             <div class="paket-icon">💰</div>
+             <div class="paket-label">YOBSZ LIMIT</div>
+             <div class="paket-jumlah">${paket.limit} Limit</div>
+             <div class="paket-harga-besar">Rp ${paket.harga.toLocaleString('id-ID')}</div>
+             <button class="paket-btn">
+                 <span>⚡</span> Pilih Paket
+             </button>
+         `;
+         kartu.onclick = () => bukaFormPemesanan(paket);
+         wadah.appendChild(kartu);
+     });
+ }
+ // BUKA FORM PEMESANAN POP UP
+ function bukaFormPemesanan(paket) {
+     paketDipilih = paket;
+     document.getElementById('formPaketNo').value = `Paket No. ${paket.no} — ${paket.nama}`;
+     document.getElementById('formJumlahLimit').value = `${paket.limit} kali`;
+     document.getElementById('formNamaPemesan').value = '';
+     document.getElementById('formKeterangan').value = '';
+     popupOverlay.classList.add('tampil');
+ }
+ // TUTUP POP UP
+ function tutupPopup() {
+     popupOverlay.classList.remove('tampil');
+     paketDipilih = null;
+ }
+ document.getElementById('tutupPopup').addEventListener('click', tutupPopup);
+ document.getElementById('tombolBatal').addEventListener('click', tutupPopup);
+ popupOverlay.addEventListener('click', e => {
+     if (e.target === popupOverlay) tutupPopup();
+ });
+ // KIRIM KE WHATSAPP
+ document.getElementById('tombolKirimWa').addEventListener('click', () => {
+     if (!paketDipilih) return;
+     const nama = document.getElementById('formNamaPemesan').value.trim();
+     const keterangan = document.getElementById('formKeterangan').value.trim() || '-';
+     if (!nama) {
+         tampilAlert('⚠️ Masukkan nama pemesan!', 'error');
+         document.getElementById('formNamaPemesan').focus();
+         return;
+     }
+     const pesan = `
+ 📋 PEMESANAN YOBSZ TOOLS
+ Paket No: ${paketDipilih.no} — ${paketDipilih.nama}
+ Jumlah Limit: ${paketDipilih.limit} kali
+ Harga: Rp ${paketDipilih.harga.toLocaleString('id-ID')}
+ Nama Pemesan: ${nama}
+ Keterangan: ${keterangan}
+ Silakan proses pesanan saya. Terima kasih 🙏
+     `.trim();
+     const urlWa = `https://wa.me/${6281314347426}?text=${encodeURIComponent(pesan)}`;
+     window.open(urlWa, '_blank');
+     
+     tampilAlert('✅ Berhasil! Mengalihkan ke WhatsApp...', 'sukses');
+     tutupPopup();
+ });
+ // GUNAKAN KEY LIMIT
+ document.getElementById('tombolPakaiKey').addEventListener('click', () => {
+    const bagianKode = document.getElementById('inputKeyLimit').value.trim();
+    
+    if (!bagianKode) {
+        tampilAlert('⚠️ Isi kode Limit Dulu!', 'error');
+        return;
+    }
+    
+    // Gabungkan otomatis jadi YBP-xxxx
+    const keyLengkap = 'YBP-' + bagianKode;
+    
+    if (keyValid[keyLengkap]) {
+        const tambah = keyValid[keyLengkap];
+        limitSisa += tambah;
+        perbaruiLimit();
+        tampilAlert(`✅ Berhasil! Limit +${tambah} kali<br>Total: ${limitSisa}`, 'sukses');
+        document.getElementById('inputKeyLimit').value = '';
+    } else {
+        tampilAlert('❌ Key tidak sah! Hubungi admin', 'error');
+    }
+});
+
+// ==============================================
+// CEK KEVALIDAN KODE REDEEM
+// ==============================================
+function keyValid(kodeInput, kodeSimpan) {
+    return kodeInput === kodeSimpan;
+}
+
+
+
+ // BUKA HALAMAN TOOL
+ function bukaTool(nama) {
+    // QR Code = GRATIS, tanpa cek limit
+    if (nama === 'qrcode') {
+        halamanUtama.classList.add('hidden');
+        halamanQr.classList.remove('hidden');
+        return;
+    }
+
+    // Hapus Background = butuh limit
+    if (limitSisa <= 0) {
+        tampilAlert('⚠️ Limit habis! Tambah limit dulu', 'error');
+        bukaHalamanPaket();
+        return;
+    }
+    halamanUtama.classList.add('hidden');
+    halamanRemovebg.classList.remove('hidden');
+}
+
+ // KEMBALI UTAMA
+ function kembaliUtama() {
+     halamanPaket.classList.add('hidden');
+     halamanRemovebg.classList.add('hidden');
+     halamanQr.classList.add('hidden');
+     halamanUtama.classList.remove('hidden');
+     document.getElementById('hasilBg').classList.remove('tampil');
+     document.getElementById('hasilQr').classList.remove('tampil');
+     document.getElementById('teksQr').value = '';
+ }
+ function bukaHalamanPaket() {
+     halamanUtama.classList.add('hidden');
+     halamanPaket.classList.remove('hidden');
+ }
+ document.getElementById('tombolBukaPaket').addEventListener('click', bukaHalamanPaket);
+ // ==============================================
+ // BAGIAN REMOVE BACKGROUND
+ // ==============================================
+ const uploadBoxBg = document.getElementById('uploadBoxBg');
+ const fileBg = document.getElementById('fileBg');
+ const loadingBg = document.getElementById('loadingBg');
+ const hasilBg = document.getElementById('hasilBg');
+ const imgAsli = document.getElementById('imgAsli');
+ const imgHasilBg = document.getElementById('imgHasilBg');
+ const unduhBg = document.getElementById('unduhBg');
+ let blobHasilBg = null;
+ uploadBoxBg.addEventListener('click', () => fileBg.click());
+ fileBg.addEventListener('change', e => e.target.files[0] && prosesFileBg(e.target.files[0]));
+ function prosesFileBg(file) {
+     if (!file.type.startsWith('image/')) {
+         tampilAlert('❌ Pilih file gambar saja!', 'error');
+         return;
+     }
+     if (file.size > 12 * 1024 * 1024) {
+         tampilAlert('❌ File terlalu besar! Maksimal 12MB', 'error');
+         return;
+     }
+     const reader = new FileReader();
+     reader.onload = e => imgAsli.src = e.target.result;
+     reader.readAsDataURL(file);
+     limitSisa--;
+     perbaruiLimit();
+     hapusBg(file);
+ }
+ async function hapusBg(file) {
+     hasilBg.classList.remove('tampil');
+     loadingBg.classList.add('tampil');
+     try {
+         const formData = new FormData();
+         formData.append('image_file', file);
+         const res = await fetch('https://clipdrop-api.co/remove-background/v1', {
+             method: 'POST',
+             headers: { 'x-api-key': API_KEY },
+             body: formData
+         });
+         if (!res.ok) throw new Error(`Kesalahan: ${res.status}`);
+         blobHasilBg = await res.blob();
+         imgHasilBg.src = URL.createObjectURL(blobHasilBg);
+         loadingBg.classList.remove('tampil');
+         hasilBg.classList.add('tampil');
+         tampilAlert('✅ Background berhasil dihapus!', 'sukses');
+     } catch (err) {
+         limitSisa++; perbaruiLimit();
+         tampilAlert('❌ ' + err.message, 'error');
+         loadingBg.classList.remove('tampil');
+     }
+ }
+ unduhBg.addEventListener('click', () => {
+     if (!blobHasilBg) return;
+     const link = document.createElement('a');
+     link.download = 'yobsz-nobg.png';
+     link.href = URL.createObjectURL(blobHasilBg);
+     link.click();
+ });
+// ==============================================
+// BAGIAN QR CODE
+// ==============================================
+const teksQr = document.getElementById('teksQr');
+const buatQrBtn = document.getElementById('buatQrBtn');
+const loadingQr = document.getElementById('loadingQr');
+const hasilQr = document.getElementById('hasilQr');
+const kanvasQr = document.getElementById('kanvasQr');
+const unduhQr = document.getElementById('unduhQr');
+
+buatQrBtn.addEventListener('click', async () => {
+    const teks = teksQr.value.trim();
+    if (!teks) {
+        tampilAlert('⚠️ Tulis sesuatu dulu!', 'info');
+        return;
+    }
+
+    hasilQr.classList.remove('tampil');
+    loadingQr.classList.add('tampil');
+
+    try {
+        await QRCode.toCanvas(kanvasQr, teks, { width: 250, margin: 2 });
+        loadingQr.classList.remove('tampil');
+        hasilQr.classList.add('tampil');
+        tampilAlert('✅ QR Code berhasil dibuat! (Gratis)', 'sukses');
+    } catch (err) {
+        tampilAlert('❌ Gagal membuat QR Code', 'error');
+        loadingQr.classList.remove('tampil');
+    }
+});
+
+unduhQr.addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.download = 'yobsz-qrcode.png';
+    link.href = kanvasQr.toDataURL('image/png');
+    link.click();
+});
+
+
+
+
+ // INISIALISASI
+ perbaruiLimit();
+ muatPaket();
+ ambilDataRedeem();
+ </script>
+ </body>
+ </html>
