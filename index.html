@@ -881,20 +881,32 @@ const halamanQr = document.getElementById('halamanQr');
 const limitTeks = document.getElementById('limitTeks');
 
 // ==============================================
-// 📡 AMBIL DATA DARI SERVER
+// SIMPAN DATA KE JSONBIN
 // ==============================================
-async function ambilDataRedeem() {
-    try {
-        const res = await fetch(JSONBIN_URL + '/latest', {
-            headers: { 'X-Master-Key': JSONBIN_API_KEY }
-        });
-        const data = await res.json();
-        daftarRedeem = data.record || [];
-    } catch (err) {
-        console.log('Ambil data gagal:', err);
-        daftarRedeem = [];
-    }
+async function simpanKeServer() {
+  try {
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Master-Key": JSONBIN_API_KEY
+      },
+      body: JSON.stringify({
+        daftarRedeem: daftarRedeem
+      })
+    });
+
+    const hasil = await res.json();
+    console.log("Respon server:", hasil); // lihat di Console
+    return !!hasil.record;
+
+  } catch (err) {
+    console.error("Error simpan:", err);
+    return false;
+  }
 }
+
+
 
 // ==============================================
 // 💾 SIMPAN DATA KE SERVER
@@ -902,7 +914,7 @@ async function ambilDataRedeem() {
 async function ambilDataRedeem() {
   try {
     const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
-      headers: { 'X-Access-Key': JSONBIN_API_KEY }
+      headers: { 'X-Master-Key': JSONBIN_API_KEY }
     });
     const data = await res.json();
     
