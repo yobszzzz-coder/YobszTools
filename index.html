@@ -582,7 +582,150 @@
     color: #fff;
 }
 
+/* === LOADING SKELETON — Cahaya Putih Bergerak di Dalam === */
+.skeleton-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 9999;
+  background-color: #f0f0f0;
+  background-image: radial-gradient(#d0d0d0 1px, transparent 1px);
+  background-size: 20px 20px;
+  padding: 60px 20px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.skeleton-wrapper.aktif {
+  opacity: 1;
+  pointer-events: auto;
+}
 
+/* === ANIMASI CAHAYA PUTIH BERGERAK === */
+@keyframes cahayaBerjalan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+/* Kotak Loading — Wadah */
+.skeleton {
+  position: relative;
+  overflow: hidden; /* Sembunyikan bagian cahaya di luar kotak */
+  border: 3px solid #000;
+  border-radius: 10px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+}
+
+/* Lapisan Dasar Warna */
+.sk-top-btn {
+  width: 160px;
+  height: 40px;
+  border-radius: 50px;
+  background: #1a1a1a;
+}
+.sk-judul-atas {
+  width: 200px;
+  height: 24px;
+  border: none;
+  box-shadow: none;
+  background: #ddd;
+}
+.sk-limit {
+  width: 100%;
+  max-width: 380px;
+  height: 56px;
+  border-radius: 12px;
+  background: #6c5ce7;
+}
+.sk-kotak-utama {
+  width: 100%;
+  max-width: 380px;
+  background: #fff;
+  border: 3px solid #000;
+  border-radius: 16px;
+  box-shadow: 5px 5px 0 rgba(0,0,0,0.2);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.sk-card-premium {
+  width: 100%;
+  height: 120px;
+  border-radius: 8px;
+  background: #7b61ff;
+}
+.sk-card-free {
+  width: 100%;
+  height: 120px;
+  border-radius: 8px;
+  background: #facc15;
+}
+.sk-tambah-limit {
+  width: 100%;
+  max-width: 320px;
+  height: 52px;
+  border-radius: 10px;
+  background: #6c5ce7;
+}
+.sk-tombol-bawah {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 380px;
+}
+.sk-btn {
+  flex: 1;
+  height: 52px;
+  border-radius: 10px;
+}
+.sk-btn-home { background: #6c5ce7; }
+.sk-btn-redeem { background: #e9d5ff; }
+.sk-btn-vip { background: #facc15; }
+.sk-judul-bawah {
+  width: 240px;
+  height: 32px;
+  border: none;
+  box-shadow: none;
+  background: #ddd;
+  margin-top: 10px;
+}
+
+/* === CAHAYA PUTIH YANG BERGERAK === */
+.skeleton::after,
+.sk-card-premium::after,
+.sk-card-free::after,
+.sk-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255,255,255,0.5) 50%, 
+    transparent 100%);
+  animation: cahayaBerjalan 2.5s infinite linear;
+}
+
+/* Sembunyikan konten */
+.konten-asli {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.konten-asli.aktif {
+  opacity: 1;
+  visibility: visible;
+}
+        
     </style>
 </head>
 <body>
@@ -691,7 +834,36 @@
     <div id="daftarRedeemAktif"></div>
 </div>
 
+<!-- === LOADING SKELETON — Penuh Layar === -->
+<div class="skeleton-wrapper aktif" id="bagianLoading">
+  <div class="skeleton sk-top-btn"></div>
+  <div class="skeleton sk-judul-atas"></div>
+  <div class="skeleton sk-limit"></div>
+  
+  <div class="sk-kotak-utama">
+    <div class="skeleton sk-card-premium"></div>
+    <div class="skeleton sk-card-free"></div>
+  </div>
+  
+  <div class="skeleton sk-tambah-limit"></div>
+  
+  <div class="sk-tombol-bawah">
+    <div class="skeleton sk-btn sk-btn-home"></div>
+    <div class="skeleton sk-btn sk-btn-redeem"></div>
+    <div class="skeleton sk-btn sk-btn-vip"></div>
+  </div>
+  
+  <div class="skeleton sk-judul-bawah"></div>
+</div>
 
+<!-- === KONTEN ASLI === -->
+<div class="konten-asli" id="bagianKonten">
+  <!-- TARUH SEMUA ISI WEB KAMU DI SINI -->
+</div>
+
+
+
+    
 
     <div class="container">
         <div class="top-server">
@@ -1434,7 +1606,19 @@ unduhQr.addEventListener('click', () => {
     link.click();
 });
 
+ //bagian loading   
+function selesaiLoading() {
+  document.getElementById('bagianLoading').classList.remove('aktif');
+  document.getElementById('bagianKonten').classList.add('aktif');
+}
 
+window.addEventListener('load', function() {
+  setTimeout(selesaiLoading, 1200); // ubah angka kalau mau lebih cepat/lambat
+});
+    
+
+
+    
 
 
  // INISIALISASI
